@@ -1,0 +1,12 @@
+---
+- name: Demo playbook for rolling-ansible-container
+  hosts: all
+  become: true
+
+  tasks:
+  - name: Install git and curl
+    ansible.builtin.package:
+      name:
+        - git
+        - curl
+      state: present

@@ -16,17 +16,20 @@ then
         elif command -v apt-get &> /dev/null
         then
             #apt-get update
-            apt-get install python3-pip
+            apt-get install python3-pip 
+            apt-get clean
         elif command -v yum &> /dev/null
         then
             #yum update -y
             yum install -y python3-pip
+
         elif command -v dnf &> /dev/null
         then
             dnf install  python3-pip
         elif command -v emerge &> /dev/null
         then
             emerge -q dev-python/pip
+            rm -rf /var/cache/distfiles/*
         fi
     fi
     # We opt for a pip user install to avoid messing with the system python
