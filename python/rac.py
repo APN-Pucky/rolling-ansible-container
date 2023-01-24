@@ -54,6 +54,15 @@ def main():
         action="store_true",
     )
 
+    parser.add_argument(
+        "--pull",
+    )
+
+    parser.add_argument(
+        "-c",
+        "--command",
+    )
+
     args = parser.parse_args()
 
     dockerfile = ""
@@ -79,15 +88,27 @@ RUN chmod +x /bootstrap-rac.sh && /bootstrap-rac.sh && rm /bootstrap-rac.sh
 COPY { args.dir } /ansible/
     """
 
-    if args.role:
+
+    if args.pull:
         dockerfile += f"""
-RUN . ansible-env/bin/activate && cd ansible && ansible localhost --connection=local  --module-name include_role --args name={ args.role } && cd .. && rm -r /ansible 
+RUN . ansible-env/bin/activate && cd ansible && ansible-pull -i localhost, --connection=local --url { args.pull } site.yaml && cd .. && rm -r /ansible 
         """
 
     if args.playbook:
         dockerfile += f"""
 RUN . ansible-env/bin/activate && cd ansible && ansible-playbook -i localhost, --connection=local { args.playbook } && cd .. && rm -r /ansible 
         """
+
+    if args.role:
+        dockerfile += f"""
+RUN . ansible-env/bin/activate && cd ansible && ansible localhost --connection=local  --module-name include_role --args name={ args.role } && cd .. && rm -r /ansible 
+        """
+
+    if args.command:
+        dockerfile += f"""
+RUN . ansible-env/bin/activate && cd ansible && { args.command } && cd .. && rm -r /ansible 
+        """
+
 
     if args.flatten:
         dockerfile += f"""
