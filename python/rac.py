@@ -67,10 +67,10 @@ RUN chmod +x /bootstrap-rac.sh && /bootstrap-rac.sh && rm /bootstrap-rac.sh
     else:
         # Check if image exists
         p = subprocess.run(["docker", "image", "inspect", args.image])
-        if p != 0:
+        if p.returncode != 0:
             # Pull it
             p = subprocess.run(["docker", "pull", args.image])
-            if p != 0:
+            if p.returncode != 0:
                 print (f"Could not find {args.image}")
                 exit(1)
         dockerfile += f"""FROM {args.image} as build"""
@@ -106,6 +106,7 @@ COPY --from=build / /
     if args.push:
         subprocess.run(["docker", "push", args.image])
 
+    print("All done")
 
 if __name__ == "__main__":
     main()
