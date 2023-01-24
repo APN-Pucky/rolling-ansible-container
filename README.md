@@ -21,6 +21,7 @@ Advantages
   * Combining the best of two world: Ansible and containers
   * Easy way to have commutable installations in a container (i.e. you don't have to bother with the order of the installations, but can order them if necessary)
   * Well suited for rolling release systems
+  * Very large containers should be reused to save Network as much as possible
   * Use the same technology on your containers as on your hardware (-> ansible)
   * Ansible prevents (accidental) regression
   * Ansible sort-of provides an operating system/distro independent way of installing software

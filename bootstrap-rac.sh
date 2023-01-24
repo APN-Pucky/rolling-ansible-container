@@ -12,11 +12,11 @@ then
         if command -v apt &> /dev/null
         then
             apt update
-            apt install --assume-yes --no-install-recommends python3-pip
+            apt install --assume-yes --no-install-recommends python3-pip python3-setuptools
         elif command -v apt-get &> /dev/null
         then
             #apt-get update
-            apt-get install python3-pip 
+            apt-get install python3-pip python3-setuptools
             apt-get clean
         elif command -v yum &> /dev/null
         then
