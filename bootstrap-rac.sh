@@ -4,15 +4,15 @@ then
     ####################
     # Install Ansible  #
     ####################
-    if command -v pip3 &> /dev/null
+    if ! command -v pip3 &> /dev/null
     then
         ####################
         # Install Pip3     #
         ####################
         if command -v apt &> /dev/null
         then
-            #apt update
-            apt install python3-pip
+            apt update
+            apt install --assume-yes --no-install-recommends python3-pip
         elif command -v apt-get &> /dev/null
         then
             #apt-get update
@@ -31,5 +31,5 @@ then
     fi
     # We opt for a pip user install to avoid messing with the system python
     # installation. This allows us to uninstall ansible easier later on.
-    python3 -m pip install --user ansible
+    python3 -m pip install ansible
 fi
