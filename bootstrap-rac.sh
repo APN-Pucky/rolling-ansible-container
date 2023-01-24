@@ -34,5 +34,6 @@ then
     fi
     # We opt for a pip user install to avoid messing with the system python
     # installation. This allows us to uninstall ansible easier later on.
+    python3 -m pip install -U pip setuptools 
     python3 -m pip install ansible
 fi
