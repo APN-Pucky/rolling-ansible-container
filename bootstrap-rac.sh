@@ -39,4 +39,7 @@ then
     python3 -m venv ansible-env
     source ansible-env/bin/activate
     pip install ansible
+
+    # Can the python pipenv code be COPY'd into the container? Especially if it's cross platform?
+
 fi

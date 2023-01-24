@@ -9,13 +9,6 @@ def main():
     )
 
     parser.add_argument(
-        "-b",
-        "--base",
-        required=True,
-        help="Base image to use",
-    )
-
-    parser.add_argument(
         "-i",
         "--image",
         required=True,
@@ -44,8 +37,6 @@ def main():
     parser.add_argument(
         "-s",
         "--seed",
-        default=False,
-        action="store_true",
         help="start with a fresh base seed image",
     )
 
@@ -67,20 +58,21 @@ def main():
 
     dockerfile = ""
 
-    # Check if image exists
-    p = subprocess.run(["docker", "image", "inspect", args.image])
-    if p != 0 or args.seed:
-        # Pull it
-        p = subprocess.run(["docker", "pull", args.image])
-        if p != 0 or args.seed:
-            dockerfile += f"""
-FROM {args.base} as build
+    if args.seed:
+         dockerfile += f"""
+FROM {args.seed} as build
 ADD https://raw.githubusercontent.com/APN-Pucky/rolling-ansible-container/master/bootstrap-rac.sh /bootstrap-rac.sh
 RUN chmod +x /bootstrap-rac.sh && /bootstrap-rac.sh && rm /bootstrap-rac.sh 
             """
-        else:
-            dockerfile += f"""FROM {args.image} as build"""
     else:
+        # Check if image exists
+        p = subprocess.run(["docker", "image", "inspect", args.image])
+        if p != 0:
+            # Pull it
+            p = subprocess.run(["docker", "pull", args.image])
+            if p != 0:
+                print (f"Could not find {args.image}")
+                exit(1)
         dockerfile += f"""FROM {args.image} as build"""
 
     dockerfile += f"""

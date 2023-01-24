@@ -36,3 +36,4 @@ Disadvantages
   * Overhead of ansible (and thereby python). However, they can be purged after the installation if one aims for a clean production container.
   * No linear installation history
   * Older code will remain in the docker, unless ansible `state: latest` is used.
+  * Docker caches might not be used as efficently

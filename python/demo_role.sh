@@ -1,4 +1,4 @@
 
 
 # Download and seed the image
-python3 rac.py --base debian --image apnpucky/python-rac-test --seed --role test --flatten  
+python3 rac.py --image apnpucky/python-rac-role-test:latest --seed debian --role test --flatten --push
