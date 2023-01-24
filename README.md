@@ -10,7 +10,7 @@ One major drawback of working with docker containers is that a small change in t
 When one is only installing software (by source or binary) these installation steps are mostly commuting.
 
 In this pilot project we try to solve this by reusing the container and reuse already installed software.
-If however some steps acutally depend on one another ansible can be used to manage these.
+If however some steps actually depend on one another ansible can be used to manage these.
 
 In doing so we solve another issue with Docker containers, namely that they can get quite ugly with more features being added.
 
@@ -32,3 +32,4 @@ Disadvantages
 
   * Containers will grow with time. However, one can solve this by either clearing logs or rerun ansible on a fresh container  
   * Overhead of ansible (and thereby python). However, they can be purged after the installation if one aims for a clean production container.
+  * No linear installation history
