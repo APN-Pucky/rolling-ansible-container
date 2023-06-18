@@ -63,6 +63,10 @@ def main():
         "--command",
     )
 
+    parser.add_argument(
+        "--args",
+    )
+
     args = parser.parse_args()
 
     dockerfile = ""
@@ -101,7 +105,7 @@ RUN . ansible-env/bin/activate && cd ansible && ansible-playbook -i localhost, -
 
     if args.role:
         dockerfile += f"""
-RUN . ansible-env/bin/activate && cd ansible && ansible localhost --connection=local  --module-name include_role --args name={ args.role } && cd .. && rm -r /ansible 
+RUN . ansible-env/bin/activate && cd ansible && ansible localhost --connection=local  --module-name include_role --args name={ args.role },{args.args} && cd .. && rm -r /ansible 
         """
 
     if args.command:
