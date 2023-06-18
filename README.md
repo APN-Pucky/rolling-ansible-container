@@ -28,7 +28,7 @@ Advantages
   * Ansible is better structured than e.g. Dockerfiles
   * Reuse of missing binaries
   * No need to force single commands into a single line
-  * Enjoy the large ansibel ecosystem
+  * Enjoy the large ansible ecosystem
 
 Disadvantages
 ---------------
