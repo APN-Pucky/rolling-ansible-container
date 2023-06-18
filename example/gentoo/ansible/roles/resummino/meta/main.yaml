@@ -1,0 +1,16 @@
+---
+dependencies:
+  - role: repo_science
+  - role: repo_hep_forge
+
+galaxy_info:
+  role_name: physics
+  description: |
+    Setup physics related stuff.
+  author: Alexander Puck Neuwirth
+  platforms:
+    - name: Gentoo
+      versions:
+        - all
+  license: GPLv3
+  min_ansible_version: "2.0"

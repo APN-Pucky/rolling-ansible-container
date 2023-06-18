@@ -1,0 +1,26 @@
+---
+- name: Setup repo hep-forge
+  ansible.builtin.include_role:
+    name: portage_repo_copy_sync
+    allow_duplicates: false
+  vars:
+    file: files/hep-forge.conf
+    repo: hep-forge
+
+- name: Unmask all ~amd64 for hep-forge
+  ansible.builtin.lineinfile:
+    path: /etc/portage/package.accept_keywords/hep-forge
+    line: '*/*::hep-forge ~amd64'
+    create: true
+    mode: "0644"
+    owner: root
+    group: root
+
+- name: Debug env for all hep-forge
+  ansible.builtin.lineinfile:
+    path: /etc/portage/package.env/hep-forge
+    line: '*/*::hep-forge debug'
+    create: true
+    mode: "0644"
+    owner: root
+    group: root

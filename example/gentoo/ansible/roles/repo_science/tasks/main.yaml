@@ -1,0 +1,7 @@
+---
+- name: Setup repo science
+  ansible.builtin.include_role:
+    name: portage_repo_enable_sync
+    allow_duplicates: false
+  vars:
+    repo: science

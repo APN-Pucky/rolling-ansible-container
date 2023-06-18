@@ -1,0 +1,23 @@
+---
+- name: Unmask
+  when: category != "" and package != "" and version != "" and unmask
+  ansible.builtin.include_role:
+    name: portage_unmask
+
+- name: Accept Keywords
+  when: category != "" and package != "" and keywords != ""
+  ansible.builtin.include_role:
+    name: portage_accept_keywords
+
+- name: USE
+  when: category != "" and package != "" and use != ""
+  ansible.builtin.include_role:
+    name: portage_use
+
+- name: Package
+  when: package != ""
+  ansible.builtin.include_role:
+    name: portage_package
+  vars:
+    world_pkgs:
+      - "{{ atom }}{{ category }}{% if category != '' %}/{% endif %}{{ package }}{% if version != '' %}-{% endif %}{{ version }}{{ slot }}"

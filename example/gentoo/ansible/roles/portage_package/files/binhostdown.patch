@@ -1,0 +1,12 @@
+--- a/lib/portage/dbapi/bintree.py	2023-01-15 23:11:19.000000000 +0100
++++ b/lib/portage/dbapi/bintree.py	2023-05-16 18:58:19.902517636 +0200
+@@ -1477,7 +1477,8 @@
+                     error_msg = str(uerror.object, encoding="utf_8", errors="replace")
+                 writemsg(f"!!! {error_msg}\n\n")
+                 del e
+-                pkgindex = None
++                pkgindex = self._new_pkgindex()
++                rmt_idx = pkgindex
+             if proc is not None:
+                 if proc.poll() is None:
+                     proc.kill()

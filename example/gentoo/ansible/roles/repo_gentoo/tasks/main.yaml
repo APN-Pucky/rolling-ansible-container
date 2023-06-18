@@ -1,0 +1,8 @@
+---
+- name: Setup repo gentoo
+  ansible.builtin.include_role:
+    name: portage_repo_copy_sync
+    allow_duplicates: false
+  vars:
+    file: files/gentoo.conf
+    repo: gentoo

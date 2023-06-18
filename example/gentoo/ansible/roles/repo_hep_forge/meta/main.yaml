@@ -1,0 +1,15 @@
+---
+dependencies:
+  - role: dev_system
+
+galaxy_info:
+  role_name: repo_hep_forge
+  description: |
+    Setup development hep-forge gentoo repo.
+  author: Alexander Puck Neuwirth
+  platforms:
+    - name: Gentoo
+      versions:
+        - all
+  license: GPLv3
+  min_ansible_version: "2.0"

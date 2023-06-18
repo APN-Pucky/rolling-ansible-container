@@ -1,0 +1,10 @@
+---
+- name: Install resummino
+  ansible.builtin.include_role:
+    name: emerge
+  vars:
+    atom: "="
+    category: dev-util
+    package: github-cli
+    keywords: "~amd64"
+    version: "{{resummino_version}}"

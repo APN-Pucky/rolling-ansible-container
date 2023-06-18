@@ -1,0 +1,45 @@
+---
+- name: Ensure role only runs on Gentoo
+  when: ansible_os_family != "Gentoo"
+  ansible.builtin.fail:
+    msg: "This role should only run on Gentoo!"
+- name: Debug
+  ansible.builtin.debug:
+    msg: "Adding these packages to world: {{ world_pkgs }}"
+
+- name: Create sys-apps/portage directory
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - /etc/portage/patches/
+    - /etc/portage/patches/sys-apps/
+    - /etc/portage/patches/sys-apps/portage/
+
+- name: Patch portage
+  ansible.builtin.copy:
+    src: binhostdown.patch
+    dest: /etc/portage/patches/sys-apps/portage/binhostdown.patch
+    owner: root
+    group: root
+    mode: "0644"
+    backup: false
+
+- name: Add packages to world
+  portage: # noqa fqcn
+    package: "{{ world_pkgs }}"
+    noreplace: true
+    getbinpkg: "{{ getpkg | default(false) }}"
+    state: present
+# - name: Debug
+#   ansible.builtin.debug:
+#     msg: "Removing these packages from world: {{ depclean_pkgs }}"
+# - name: Depclean packages
+#   portage: # noqa fqcn
+#     package: "{{ depclean_pkgs }}"
+#     depclean: true
+#     getbinpkg: true
+#     state: absent
